@@ -1,20 +1,30 @@
 package com.example.demo.game.game1;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game1Controller {
 
     private Parent game1;
     private Stage window;
 
-    public Game1Controller(){
+    public Game1Controller() {
 
     }
+
     public void BacktoChoosegame(MouseEvent mouseEvent) {
         try {
             game1 = FXMLLoader.load(getClass().getResource("/game/Choosegame.fxml"));
@@ -37,8 +47,9 @@ public class Game1Controller {
             window = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             window.setScene(playgame1);
             window.setTitle("Game 1");
-
+            readFileQuestion();
             window.show();
+            ShowQuestion();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -88,4 +99,83 @@ public class Game1Controller {
             System.out.println("lỗi");
         }
     }
+
+
+    private List<Question> questions = new ArrayList<>();
+
+    // đọc file game
+    public void readFileQuestion() {
+        String path = "src\\main\\java\\com\\example\\demo\\game\\game1\\game1.txt";
+        //String path = "com.example.demo.game1.txt";
+        try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = bf.readLine()) != null) {
+                String q = line;
+                String a = bf.readLine();
+                String b = bf.readLine();
+                String c = bf.readLine();
+                String d = bf.readLine();
+                String correctAnswer = bf.readLine();
+                Question question = new Question(q, a, b, c, d, correctAnswer);
+                questions.add(question);
+            }
+        } catch (IOException e) {
+            System.out.println("Lỗi đọc file " + path);
+        }
+    }
+
+    @FXML
+    private Label questiongame;
+    @FXML
+    private CheckBox a;
+    @FXML
+    private CheckBox b;
+    @FXML
+    private CheckBox c;
+    @FXML
+    private CheckBox d;
+
+
+    public void ChooseanswerA(MouseEvent mouseEvent) {
+        if (a.isSelected()) {
+            b.setSelected(false);
+            c.setSelected(false);
+            d.setSelected(false);
+        }
+    }
+
+    public void ChooseanswerB(MouseEvent mouseEvent) {
+        if (b.isSelected()) {
+            a.setSelected(false);
+            c.setSelected(false);
+            d.setSelected(false);
+        }
+    }
+
+    public void ChooseanswerC(MouseEvent mouseEvent) {
+        if (c.isSelected()) {
+            a.setSelected(false);
+            b.setSelected(false);
+            d.setSelected(false);
+        }
+    }
+
+    public void ChooseanswerD(MouseEvent mouseEvent) {
+        if (d.isSelected()) {
+            a.setSelected(false);
+            b.setSelected(false);
+            c.setSelected(false);
+        }
+    }
+
+    public void ShowQuestion() {
+        try {
+            questiongame.setText("hello");
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+    }
+
+
 }

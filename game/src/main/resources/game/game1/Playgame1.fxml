@@ -22,14 +22,14 @@
       </VBox>
       <HBox layoutX="252.0" layoutY="313.0" prefHeight="25.0" prefWidth="285.0" spacing="15.0">
          <children>
-            <Button mnemonicParsing="false" text="&lt;-" />
-            <Label prefHeight="21.0" prefWidth="119.0" text="Score:">
+            <Button fx:id="back_question" mnemonicParsing="false" onMouseClicked="#Back_question" text="&lt;-" />
+            <Label fx:id="score" prefHeight="21.0" prefWidth="119.0" text="Score:">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" text="Submit" />
-            <Button mnemonicParsing="false" text="-&gt;" />
+            <Button fx:id="submitanswer" mnemonicParsing="false" onMouseClicked="#Submitanswer" text="Submit" />
+            <Button fx:id="next_question" mnemonicParsing="false" onMouseClicked="#Next_question" text="-&gt;" />
          </children>
       </HBox>
     </children>
